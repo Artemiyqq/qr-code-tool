@@ -1,10 +1,10 @@
 import { Box } from "@mui/material"
-import { QRCodeSVG } from "qrcode.react";
 import QrCodeForm from "./QrCodeForm";
 import { useQrCode } from "../../hooks/useQrCode";
+import GeneratedQrCodeBox from "./GeneratedQrCodeBox";
 
 const QrCodeGenerationBox = () => {
-    const { generateQrCode, qrCodeValue } = useQrCode() ?? {
+    const { generateQrCode, } = useQrCode() ?? {
         isQrCodeGenerated: false,
         qrCodeValue: '',
     };
@@ -24,16 +24,7 @@ const QrCodeGenerationBox = () => {
             }}>
             <QrCodeForm />
             {generateQrCode && (
-                <QRCodeSVG
-                    value={qrCodeValue}
-                    size={300}
-                    style={{
-                        padding: "20px",
-                        borderRadius: "20px",
-                        boxShadow: "0 0 30px 0 rgba(0,0,0,0.2)",
-                        marginTop: "5%",
-                    }}
-                />
+                <GeneratedQrCodeBox />
             )}
         </Box>
     );

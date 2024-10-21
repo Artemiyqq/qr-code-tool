@@ -1,3 +1,6 @@
+using QrCodeGeneratorAPI.Services.Contracts;
+using QrCodeGeneratorAPI.Services.Implementations;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -9,6 +12,8 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddScoped<IQrCodeService, QrCodeService>();
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -16,6 +21,12 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors(options => options
+           .SetIsOriginAllowed(x => _ = true)
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials());
 
         app.UseHttpsRedirection();
 

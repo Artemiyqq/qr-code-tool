@@ -45,3 +45,5 @@ bld/
 *.azurePubxml
 *.pubxml
 *.publishproj
+
+.env

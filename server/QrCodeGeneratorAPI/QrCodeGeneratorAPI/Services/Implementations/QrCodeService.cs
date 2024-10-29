@@ -15,12 +15,12 @@ namespace QrCodeGeneratorAPI.Services.Implementations
             if (type == QrCodeFileType.Png)
             {
                 using PngByteQRCode pngQrCode = new(qrCodeData);
-                byte[] qrCodeImage = pngQrCode.GetGraphic(20);
+                byte[] qrCodeImage = pngQrCode.GetGraphic(10);
                 return qrCodeImage;
             }
 
             SvgQRCode svgQrCode = new(qrCodeData);
-            string svgImage = svgQrCode.GetGraphic(20);
+            string svgImage = svgQrCode.GetGraphic(10);
             byte[] byteArray = Encoding.UTF8.GetBytes(svgImage);
             return byteArray;
         }

@@ -3,7 +3,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
 import { qrCodeService } from "../../services/qr-code.service";
 import { useQrCode } from "../../hooks/useQrCode";
-import { QrCodeFileType } from "./qr-code-file-type.enum";
+import { QrCodeFileType } from "../../enums/qr-code-file-type.enum";
 
 const DownloadQrCode = () => {
     const { qrCodeValue } = useQrCode() ?? { qrCodeValue: "" };
@@ -49,7 +49,7 @@ const DownloadQrCode = () => {
                 aria-controls={isMenuOpen ? "download-qr-code-menu" : undefined}
                 aria-expanded={isMenuOpen ? "true" : undefined}
                 onClick={handleMenuClick}
-                sx={{ "&:hover": { backgroundColor: "unset" } }}
+                sx={{ height: "70px", width: "70px" }}
             >
                 <FileDownloadOutlinedIcon
                     sx={{ fontSize: "70px", cursor: "pointer", color: "black" }}

@@ -13,7 +13,6 @@ namespace QrCodeGeneratorAPI.Controllers
         [HttpGet("generate-png")]
         public async Task<IActionResult> GeneratePng([FromQuery] string text)
         {
-            Console.WriteLine(text);
             if (string.IsNullOrEmpty(text)) return BadRequest(new { error = "Text is required" });
 
             var qrCodeImage = await Task.Run(() => _qrCodeService.GenerateFromString(text, Enums.QrCodeFileType.Png));

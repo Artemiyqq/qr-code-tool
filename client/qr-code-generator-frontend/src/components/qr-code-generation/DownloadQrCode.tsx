@@ -1,12 +1,12 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
-import { qrCodeService } from "../../services/qr-code.service";
-import { useQrCode } from "../../hooks/useQrCode";
 import { QrCodeFileType } from "../../enums/qr-code-file-type.enum";
+import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
+import { qrCodeService } from "../../services/qr-code.service";
 
 const DownloadQrCode = () => {
-    const { qrCodeValue } = useQrCode() ?? { qrCodeValue: "" };
+    const { qrCodeValue } = useQrCodeGeneration() ?? { qrCodeValue: "" };
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);

@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { QrCodeContext } from "../contexts/QrCodeContext";
+import { QrCodeGenerationContext } from "../contexts/QrCodeGenerationContext";
 
-export const useQrCode = () => {
-    const context = useContext(QrCodeContext);
+export const useQrCodeGeneration = () => {
+    const context = useContext(QrCodeGenerationContext);
     if (context === undefined) {
         throw new Error('useQrCodeContext must be used within a QrCodeProvider');
     } else {

@@ -2,12 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import Router from './components/Router'
-import { QrCodeProvider } from './contexts/QrCodeContext'
+import { QrCodeGenerationProvider } from './contexts/QrCodeGenerationContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QrCodeProvider>
+    <QrCodeGenerationProvider>
       <Router />
-    </QrCodeProvider>
+    </QrCodeGenerationProvider>
   </StrictMode>,
 )

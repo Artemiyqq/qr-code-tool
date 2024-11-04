@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useQrCode } from "../../hooks/useQrCode";
+import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
 
 const encryptionTypes = [
     { value: 'WPA3', label: 'WPA3' },
@@ -19,7 +19,7 @@ const schema = yup.object({
 })
 
 const QrCodeWifiForm = () => {
-    const { qrCodeValueChanged, setGenerateQrCode } = useQrCode() ?? {
+    const { qrCodeValueChanged, setGenerateQrCode } = useQrCodeGeneration() ?? {
         setGenerateQrCode: () => { },
         qrCodeValueChanged: () => { }
     }
@@ -34,7 +34,7 @@ const QrCodeWifiForm = () => {
         <Box component="form"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            sx={{ display: 'flex',justifyContent: 'center', flexDirection: "column" }}>
+            sx={{ display: 'flex', justifyContent: 'center', flexDirection: "column" }}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <TextField
                     label="SSID (Name of the Wi-Fi)"

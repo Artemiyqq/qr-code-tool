@@ -1,10 +1,10 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material"
 import { QrCodeContentType } from "../../enums/qr-code-content-type.enum";
-import { useQrCode } from "../../hooks/useQrCode";
+import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
 import { useState } from "react";
 
 const SelectQrCodeType = () => {
-    const { setQrCodeContentType, setGenerateQrCode } = useQrCode() ?? { setQrCodeType: () => { } };
+    const { setQrCodeContentType, setGenerateQrCode } = useQrCodeGeneration() ?? { setQrCodeType: () => { } };
     const [wasTypeChanged, setWasTypeChanged] = useState(false);
 
     const handleTypeChange = (newType: QrCodeContentType) => {
@@ -14,9 +14,13 @@ const SelectQrCodeType = () => {
     }
 
     return (
-        <FormControl sx={{  marginBottom: '10px', marginLeft: '5%' }}>
+        <FormControl sx={{ marginBottom: '10px', marginLeft: '5%' }}>
             <FormLabel id="radio-buttons-group-label"
-                sx={{ fontWeight: 'bold', color: 'black', fontSize: 20, visibility: wasTypeChanged ? 'hidden' : 'visible' }}>
+                sx={{
+                    fontWeight: 'bold', color: 'black', fontSize: 20,
+                    visibility: wasTypeChanged ? 'hidden' : 'visible',
+                    marginTop: wasTypeChanged ? '0%' : '3%',
+                }}>
                 Qr Code Content
             </FormLabel>
             <RadioGroup

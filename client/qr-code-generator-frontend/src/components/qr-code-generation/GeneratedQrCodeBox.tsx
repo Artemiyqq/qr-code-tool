@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { QRCodeSVG } from "qrcode.react";
-import { useQrCode } from "../../hooks/useQrCode";
+import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
 import DownloadQrCode from "./DownloadQrCode";
 
 const qrCodeStyle = {
@@ -10,14 +10,14 @@ const qrCodeStyle = {
 };
 
 const GeneratedQrCode = () => {
-    const { qrCodeValue: value } = useQrCode() ?? { value: '' };
+    const { qrCodeValue: value } = useQrCodeGeneration() ?? { value: '' };
 
     return (
         <Box display="flex" justifyContent="center" pl={11} height="100%">
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" >
                 <QRCodeSVG id="qr-code" value={value} size={300} style={qrCodeStyle} />
             </Box>
-            <Box display="flex" alignItems="center"  pl={1} height="100%">
+            <Box display="flex" alignItems="center" pl={1} height="100%">
                 <DownloadQrCode />
             </Box>
         </Box>

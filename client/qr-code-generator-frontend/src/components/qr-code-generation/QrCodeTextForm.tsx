@@ -2,14 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useQrCode } from "../../hooks/useQrCode";
+import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
 
 const schema = yup.object({
     textForGenerator: yup.string().required('Required'),
 }).required();
 
 const QrCodeForm = () => {
-    const { qrCodeValueChanged, setGenerateQrCode } = useQrCode() ?? {
+    const { qrCodeValueChanged, setGenerateQrCode } = useQrCodeGeneration() ?? {
         qrCodeValueChanged: () => { },
         setGenerateQrCode: () => { }
     };

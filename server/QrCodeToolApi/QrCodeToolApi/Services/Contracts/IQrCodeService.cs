@@ -1,6 +1,6 @@
-﻿using QrCodeGeneratorAPI.Enums;
+﻿using QrCodeToolApi.Enums;
 
-namespace QrCodeGeneratorAPI.Services.Contracts
+namespace QrCodeToolApi.Services.Contracts
 {
     /// <summary>
     /// Service for generating QR codes.

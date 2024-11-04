@@ -1,4 +1,4 @@
-namespace QrCodeGeneratorAPI.Enums
+namespace QrCodeToolApi.Enums
 {
     public enum QrCodeFileType
     {

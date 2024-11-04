@@ -1,5 +1,5 @@
-using QrCodeGeneratorAPI.Services.Contracts;
-using QrCodeGeneratorAPI.Services.Implementations;
+using QrCodeToolApi.Services.Contracts;
+using QrCodeToolApi.Services.Implementations;
 
 internal class Program
 {

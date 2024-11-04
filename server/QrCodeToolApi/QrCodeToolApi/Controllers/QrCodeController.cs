@@ -1,8 +1,9 @@
-﻿using System.Net.Mime;
-using Microsoft.AspNetCore.Mvc;
-using QrCodeGeneratorAPI.Services.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using QrCodeToolApi.Enums;
+using QrCodeToolApi.Services.Contracts;
+using System.Net.Mime;
 
-namespace QrCodeGeneratorAPI.Controllers
+namespace QrCodeToolApi.Controllers
 {
     [ApiController]
     [Route("api/text-qr-code")]
@@ -15,7 +16,7 @@ namespace QrCodeGeneratorAPI.Controllers
         {
             if (string.IsNullOrEmpty(text)) return BadRequest(new { error = "Text is required" });
 
-            var qrCodeImage = await Task.Run(() => _qrCodeService.GenerateFromString(text, Enums.QrCodeFileType.Png));
+            var qrCodeImage = await Task.Run(() => _qrCodeService.GenerateFromString(text, QrCodeFileType.Png));
 
             if (qrCodeImage == null)
             {
@@ -30,7 +31,7 @@ namespace QrCodeGeneratorAPI.Controllers
         {
             if (string.IsNullOrEmpty(text)) return BadRequest(new { error = "Text is required" });
 
-            var qrCodeImage = await Task.Run(() => _qrCodeService.GenerateFromString(text, Enums.QrCodeFileType.Svg));
+            var qrCodeImage = await Task.Run(() => _qrCodeService.GenerateFromString(text, QrCodeFileType.Svg));
 
             if (qrCodeImage == null)
             {

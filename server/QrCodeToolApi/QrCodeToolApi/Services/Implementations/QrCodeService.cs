@@ -1,9 +1,9 @@
-﻿using QrCodeGeneratorAPI.Enums;
-using QrCodeGeneratorAPI.Services.Contracts;
-using QRCoder;
+﻿using QRCoder;
+using QrCodeToolApi.Enums;
+using QrCodeToolApi.Services.Contracts;
 using System.Text;
 
-namespace QrCodeGeneratorAPI.Services.Implementations
+namespace QrCodeToolApi.Services.Implementations
 {
     public class QrCodeService : IQrCodeService
     {

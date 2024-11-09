@@ -20,6 +20,7 @@ const DownloadQrCode = () => {
     };
 
     const handleRequestDownload = async (fileType: QrCodeFileType) => {
+        if (!qrCodeValue) return;
         const response = fileType === QrCodeFileType.PNG ?
             await qrCodeService.generatePng(qrCodeValue) :
             await qrCodeService.generateSvg(qrCodeValue);

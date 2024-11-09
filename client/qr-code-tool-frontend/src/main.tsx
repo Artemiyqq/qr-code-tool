@@ -1,13 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import Router from './components/Router'
 import { QrCodeGenerationProvider } from './contexts/QrCodeGenerationContext'
+import { QrCodeScanningProvider } from './contexts/QrCodeScanningContext'
+import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QrCodeGenerationProvider>
-      <Router />
+      <QrCodeScanningProvider>
+        <Router />
+      </QrCodeScanningProvider>
     </QrCodeGenerationProvider>
   </StrictMode>,
 )

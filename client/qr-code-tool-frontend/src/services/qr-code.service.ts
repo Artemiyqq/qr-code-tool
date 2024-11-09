@@ -28,4 +28,17 @@ export const qrCodeService = {
             throw error;
         }
     },
+
+    scan: async (file: File) => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            const response = await axios.post(`${API_URL}/scan`, formData);
+            console.log(response.data.text);
+            return response.data.text;
+        } catch (error) {
+            console.error("Error scanning QR code:", error);
+            throw error;
+        }
+    },
 };

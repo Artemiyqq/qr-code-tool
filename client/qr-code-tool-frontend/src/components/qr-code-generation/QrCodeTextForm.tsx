@@ -9,10 +9,7 @@ const schema = yup.object({
 }).required();
 
 const QrCodeForm = () => {
-    const { qrCodeValueChanged, setGenerateQrCode } = useQrCodeGeneration() ?? {
-        qrCodeValueChanged: () => { },
-        setGenerateQrCode: () => { }
-    };
+    const { qrCodeValueChanged } = useQrCodeGeneration();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -20,7 +17,6 @@ const QrCodeForm = () => {
 
     const onSubmit = async (data: any) => {
         qrCodeValueChanged(data.textForGenerator);
-        setGenerateQrCode(true);
     };
 
     return (

@@ -1,5 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+    Box, Button, Checkbox, FormControl, FormControlLabel,
+    FormHelperText, InputLabel, MenuItem, Select, TextField
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
@@ -19,16 +22,12 @@ const schema = yup.object({
 })
 
 const QrCodeWifiForm = () => {
-    const { qrCodeValueChanged, setGenerateQrCode } = useQrCodeGeneration() ?? {
-        setGenerateQrCode: () => { },
-        qrCodeValueChanged: () => { }
-    }
+    const { qrCodeValueChanged } = useQrCodeGeneration();
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
     const onSubmit = async (data: any) => {
         qrCodeValueChanged(`WIFI:S:${data.ssid};T:${data.encryptionType};P:${data.password};H:${data.isHidden};`);
-        setGenerateQrCode(true);
-    }
+    };
 
     return (
         <Box component="form"

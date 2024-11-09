@@ -1,21 +1,18 @@
-import QrCodeForm from "./QrCodeTextForm";
+import { QrCodeContentType } from "../../enums/qr-code-content-type.enum";
 import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
 import GeneratedQrCodeBox from "./GeneratedQrCodeBox";
+import QrCodeForm from "./QrCodeTextForm";
 import QrCodeWifiForm from "./QrCodeWifiForm";
-import { QrCodeContentType } from "../../enums/qr-code-content-type.enum";
 import SelectQrCodeType from "./SelectQrCodeType";
 
 const QrCodeGenerator = () => {
-    const { generateQrCode, qrCodeContentType } = useQrCodeGeneration() ?? {
-        isQrCodeGenerated: false,
-        qrCodeValue: '',
-    };
+    const { qrCodeValue, qrCodeContentType } = useQrCodeGeneration();
 
     return (
         <>
             <SelectQrCodeType />
             {qrCodeContentType === QrCodeContentType.Text ? <QrCodeForm /> : <QrCodeWifiForm />}
-            {generateQrCode && (
+            {qrCodeValue && (
                 <GeneratedQrCodeBox />
             )}
         </>

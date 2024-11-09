@@ -2,10 +2,8 @@ import React, { createContext, useState } from "react";
 import { QrCodeContentType } from "../enums/qr-code-content-type.enum";
 
 interface QrCodeGenerationContextProps {
-    qrCodeValue: string;
-    setQrCodeValue: (value: string) => void;
-    generateQrCode: boolean;
-    setGenerateQrCode: (value: boolean) => void;
+    qrCodeValue: string | null;
+    setQrCodeValue: (value: string | null) => void;
     qrCodeValueChanged: (value: string) => void;
     qrCodeContentType: QrCodeContentType;
     setQrCodeContentType: (value: QrCodeContentType) => void;
@@ -14,12 +12,10 @@ interface QrCodeGenerationContextProps {
 export const QrCodeGenerationContext = createContext<QrCodeGenerationContextProps | undefined>(undefined);
 
 export const QrCodeGenerationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [qrCodeValue, setQrCodeValue] = useState('');
-    const [generateQrCode, setGenerateQrCode] = useState(false);
+    const [qrCodeValue, setQrCodeValue] = useState<string | null>(null);
     const [qrCodeContentType, setQrCodeContentType] = useState<QrCodeContentType>(QrCodeContentType.Text);
 
     const qrCodeValueChanged = (newValue: string) => {
-        setGenerateQrCode(false);
         setQrCodeValue(newValue);
     }
 
@@ -28,8 +24,6 @@ export const QrCodeGenerationProvider: React.FC<{ children: React.ReactNode }> =
             value={{
                 qrCodeValue,
                 setQrCodeValue,
-                generateQrCode,
-                setGenerateQrCode,
                 qrCodeValueChanged,
                 qrCodeContentType,
                 setQrCodeContentType

@@ -1,0 +1,31 @@
+name: qr-code-tool
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "7044:7044"
+    environment:
+      - ASPNETCORE_URLS=http://*:7044
+    networks:
+      - qrcode-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_REACT_APP_API_URL=http://qr-code-tool-api:7044/api
+    depends_on:
+      - backend
+    networks:
+      - qrcode-network
+
+networks:
+  qrcode-network:
+    driver: bridge

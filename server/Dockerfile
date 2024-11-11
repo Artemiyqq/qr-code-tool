@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+COPY QrCodeToolApi/QrCodeToolApi/*.csproj ./
+RUN dotnet restore
+
+COPY QrCodeToolApi/ .
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/out ./
+
+EXPOSE 7044
+
+ENTRYPOINT ["dotnet", "QrCodeToolApi.dll"]

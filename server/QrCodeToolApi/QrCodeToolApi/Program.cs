@@ -8,19 +8,11 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddControllers();
-
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
         builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 
         var app = builder.Build();
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
 
         app.UseCors(options => options
            .SetIsOriginAllowed(x => _ = true)
@@ -28,11 +20,12 @@ internal class Program
            .AllowAnyHeader()
            .AllowCredentials());
 
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         app.MapControllers();
+
+        app.Urls.Add("http://*:7044");
 
         app.Run();
     }

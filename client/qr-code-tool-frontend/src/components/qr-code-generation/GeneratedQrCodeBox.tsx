@@ -12,7 +12,7 @@ const qrCodeStyle = {
 const GeneratedQrCode = () => {
     const { qrCodeValue: value } = useQrCodeGeneration() ?? { value: '' };
 
-    return (
+    if (value) return (
         <Box display="flex" justifyContent="center" pl={11} height="100%">
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" >
                 <QRCodeSVG id="qr-code" value={value} size={300} style={qrCodeStyle} />

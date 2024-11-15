@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_REACT_APP_API_URL}/text-qr-code`;
+const API_URL = `${import.meta.env.VITE_REACT_APP_API_URL}/qr-code`;
 
 export const qrCodeService = {
     generatePng: async (text: string) => {

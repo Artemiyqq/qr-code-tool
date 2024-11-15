@@ -6,7 +6,7 @@ using System.Net.Mime;
 namespace QrCodeToolApi.Controllers
 {
     [ApiController]
-    [Route("api/text-qr-code")]
+    [Route("api/qr-code")]
     public class TextQrCodeController(IQrCodeService qrCodeService) : ControllerBase
     {
         private readonly IQrCodeService _qrCodeService = qrCodeService;

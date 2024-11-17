@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using QrCodeToolApi.Data;
 using QrCodeToolApi.Services.Contracts;
 using QrCodeToolApi.Services.Implementations;
 
@@ -9,12 +11,27 @@ internal class Program
 
         builder.Services.AddControllers();
 
+        builder.Services.AddDbContext<QrCodeToolDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        });
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var context  = scope.ServiceProvider.GetRequiredService<QrCodeToolDbContext>();
+
+            if (context .Database.GetPendingMigrations().Any())
+            {
+                context .Database.Migrate();
+            }
+        }
 
         if (app.Environment.IsDevelopment())
         {

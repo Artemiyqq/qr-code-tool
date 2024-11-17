@@ -1,7 +1,8 @@
 import { Box, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import AuthType from "../../enums/auth-type.enum";
-import AuthForm from "./AuthForm";
+import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -14,11 +15,21 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
     const toggleForm = () => setIsSignUpForm(!isSignUpForm);
 
-    const onSubmit = async (data: any, authType: AuthType) => {
+    const handleSignIn = (data: any) => {
         try {
-            // TODO: Call the API to sign in
+            // Handle sign-in logic
             onClose();
-        } catch (error: any) {
+        }
+        catch (error: any) {
+            setError(error.message);
+        }
+    };
+    const handleSignUp = (data: any) => {
+        try {
+            // Handle sign-up logic
+            onClose();
+        }
+        catch (error: any) {
             setError(error.message);
         }
     };
@@ -49,7 +60,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     {isSignUpForm ? "Sign Up" : "Sign In"}
                 </Typography>
                 {error && <Typography color="error">{error}</Typography>}
-                <AuthForm onSubmit={onSubmit} isSignUpForm={isSignUpForm} toggleForm={toggleForm} />
+                {isSignUpForm ? (
+                    <SignUpForm toggleForm={toggleForm} handleSignUp={handleSignUp} />
+                ) : (
+                    <SignInForm toggleForm={toggleForm} handleSignIn={handleSignIn} />
+                )}
             </Box>
         </Modal>
     );

@@ -6,12 +6,16 @@ import { useQrCodeScanning } from "../../hooks/useQrCodeScanning";
 import QrCodeGenerator from "../qr-code-generation/QrCodeGenerator";
 import QrCodeScanning from "../qr-code-scanning/QrCodeScanning";
 import ContentBox from "./ContentBox";
-import AccountMenu from "../auth/AuthenticationButton";
+import AuthenticationButton from "../auth/AuthenticationButton";
+import { useAccount } from "../../hooks/useAccount";
+import AccountButton from "../auth/AccountButton";
 
 const Home = () => {
     const [qrCodeMode, setQrCodeMode] = useState(QrCodeMode.Generate);
     const { setQrCodeValue: setQrCodeGenerationValue } = useQrCodeGeneration();
     const { setQrCodeValue: setQrCodeScanningValue } = useQrCodeScanning();
+
+    const { isAuthenticated } = useAccount();
 
     const changeQrCodeMode = (mode: QrCodeMode) => {
         if (mode === QrCodeMode.Generate) setQrCodeGenerationValue(null);
@@ -39,14 +43,15 @@ const Home = () => {
                     </Button>
                     <Button
                         variant="contained"
-                        sx={{ backgroundColor: '#fb5255', fontWeight: 'bold' }}
+                        sx={{ backgroundColor: '#fb5255', height: '50px', fontWeight: 'bold' }}
                         disabled={qrCodeMode === QrCodeMode.Scan}
                         onClick={() => changeQrCodeMode(QrCodeMode.Scan)}
                     >
                         Scan QR Code
                     </Button>
                 </Box>
-                <AccountMenu />
+                {!isAuthenticated && <AuthenticationButton />}
+                {isAuthenticated && <AccountButton />}
             </Box>
             <ContentBox>
                 {qrCodeMode === QrCodeMode.Scan && <QrCodeScanning />}

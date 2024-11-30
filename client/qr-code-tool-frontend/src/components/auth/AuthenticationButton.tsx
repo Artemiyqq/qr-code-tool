@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
-import SignIn from "./AuthModal";
+import AuthModal from "./auth-modal/AuthModal";
 
 const AuthenticationButton = () => {
     const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -24,7 +24,7 @@ const AuthenticationButton = () => {
                     Sign in or sign up
                 </Button>
             </Tooltip>
-            <SignIn isOpen={isSignInModalOpen} onClose={toogleModal} />
+            <AuthModal isOpen={isSignInModalOpen} onClose={toogleModal} />
         </Box>
     );
 };

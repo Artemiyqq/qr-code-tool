@@ -20,6 +20,7 @@ internal class Program
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddScoped<IQrCodeService, QrCodeService>();
+        builder.Services.AddScoped<IAccountSerivce, AccountService>();
 
         var app = builder.Build();
 

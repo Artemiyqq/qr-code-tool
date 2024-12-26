@@ -5,15 +5,18 @@ import { QrCodeGenerationProvider } from './contexts/QrCodeGenerationContext'
 import { QrCodeScanningProvider } from './contexts/QrCodeScanningContext'
 import './index.css'
 import { AccountProvider } from './contexts/AccountContext'
+import { AlertProvider } from './contexts/AlertContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AccountProvider>
-      <QrCodeGenerationProvider>
-        <QrCodeScanningProvider>
-          <Router />
-        </QrCodeScanningProvider>
-      </QrCodeGenerationProvider>
-    </AccountProvider>
+    <AlertProvider>
+      <AccountProvider>
+        <QrCodeGenerationProvider>
+          <QrCodeScanningProvider>
+            <Router />
+          </QrCodeScanningProvider>
+        </QrCodeGenerationProvider>
+      </AccountProvider>
+    </AlertProvider>
   </StrictMode>,
 )

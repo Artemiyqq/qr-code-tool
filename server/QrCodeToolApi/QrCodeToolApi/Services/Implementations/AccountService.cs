@@ -1,4 +1,3 @@
-using System.Security.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QrCodeToolApi.Data;

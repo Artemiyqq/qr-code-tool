@@ -43,9 +43,8 @@ const AccountButton = () => {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
-                MenuListProps={{ sx: { width: '100%' } }}
             >
-                <MenuItem onClick={signOut} sx={{ width: '100%', pt: 1 }}>Sign Out</MenuItem>
+                <MenuItem onClick={signOut} sx={{ pt: 1, fontSize: "1.2em" }}>Sign Out</MenuItem>
             </Menu>
         </Box>
     )

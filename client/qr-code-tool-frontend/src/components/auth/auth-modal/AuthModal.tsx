@@ -1,5 +1,5 @@
-import { Alert, Box, Modal, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Modal, Typography } from "@mui/material";
+import { useState } from "react";
 import SignInForm from "../SignInForm";
 import SignUpForm from "../SignUpForm";
 import { SignInProps } from "../../../types/SignInProps";
@@ -7,6 +7,9 @@ import { useAccount } from "../../../hooks/useAccount";
 import { SignUpProps } from "../../../types/SignUpProps";
 import './auth-modal.css';
 import AuthAlertMessages from "../../../enums/auth-alert-messages.enum";
+import AlertType from "../../../enums/alert-type.enum";
+import { useAlert } from "../../../hooks/useAlert";
+import { authService } from "../../../services/account.service";
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -16,15 +19,15 @@ interface AuthModalProps {
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const [error, setError] = useState<string | null>(null);
     const [isSignUpForm, setIsSignUpForm] = useState(false);
-    const [alertMessage, setAlertMessage] = useState<string | null>(null);
-    const [showAlert, setShowAlert] = useState<boolean>(false);
+
+    const { showNewAlert } = useAlert();
 
     const toggleForm = () => {
         setError(null);
         setIsSignUpForm(!isSignUpForm);
     }
 
-    const { signIn, signUp } = useAccount();
+    const { signIn } = useAccount();
 
     const handleSignIn = async (data: any) => {
         try {
@@ -33,8 +36,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 password: data.password
             };
             await signIn(signInData);
-            setAlertMessage(AuthAlertMessages.SignInSuccess);
-            setShowAlert(true);
+            showNewAlert(AuthAlertMessages.SignInSuccess, AlertType.Success);
+            setError(null);
             onClose();
         }
         catch (error: any) {
@@ -50,24 +53,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 password: data.password,
                 confirmPassword: data.confirmPassword
             }
-            const responseForAlert = await signUp(signUpData);
-            setAlertMessage(responseForAlert);
-            setShowAlert(true);
+            await authService.signUp(signUpData);
+            showNewAlert(AuthAlertMessages.SignUpSuccess, AlertType.Success);
+            setError(null);
             onClose();
         }
         catch (error: any) {
             setError(error.message);
         }
     };
-
-    useEffect(() => {
-        if (showAlert) {
-            const timer = setTimeout(() => {
-                setShowAlert(false);
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [showAlert]);
 
     return (
         <>
@@ -90,11 +84,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     )}
                 </Box>
             </Modal>
-            {showAlert && (
-                <Alert severity="success" onClose={() => setShowAlert(false)} variant="filled" className="alert-container">
-                    {alertMessage}
-                </Alert>
-            )}
         </>
     );
 };

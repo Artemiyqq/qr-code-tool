@@ -1,12 +1,9 @@
 import React, { createContext, useState } from "react";
 import { authService } from "../services/account.service";
 import { SignInProps } from "../types/SignInProps";
-import { SignUpProps } from "../types/SignUpProps";
-import AuthAlertMessages from "../enums/auth-alert-messages.enum";
 
 interface AccountContextProps {
     signIn: (signInData: SignInProps) => Promise<void>;
-    signUp: (signUpData: SignUpProps) => Promise<string>;
     signOut: () => void;
     accountId: string | null;
     isAuthenticated: boolean;
@@ -24,11 +21,6 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setIsAuthenticated(true);
     };
 
-    const signUp = async (signUpData: SignUpProps): Promise<string> => {
-        await authService.signUp(signUpData);
-        return AuthAlertMessages.SignUpSuccess;
-    };
-
     const signOut = () => {
         setAccountId(null);
         setIsAuthenticated(false);
@@ -38,7 +30,6 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({ child
         <AccountContext.Provider
             value={{
                 signIn,
-                signUp,
                 signOut,
                 accountId,
                 isAuthenticated,

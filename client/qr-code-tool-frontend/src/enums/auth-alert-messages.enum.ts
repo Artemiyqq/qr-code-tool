@@ -1,6 +1,6 @@
 enum AuthAlertMessages {
-    SignInSuccess = 'You have successfully signed in!',
-    SignUpSuccess = 'You have successfully signed up!',
+    SignInSuccess = 'Successfully signed in!',
+    SignUpSuccess = 'Successfully signed up! Now you can sign in.',
 }
 
 export default AuthAlertMessages;

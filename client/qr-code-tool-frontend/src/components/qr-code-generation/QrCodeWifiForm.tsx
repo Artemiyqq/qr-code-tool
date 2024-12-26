@@ -6,6 +6,9 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
+import { useAccount } from "../../hooks/useAccount";
+import { useAlert } from "../../hooks/useAlert";
+import AlertType from "../../enums/alert-type.enum";
 
 const encryptionTypes = [
     { value: 'WPA3', label: 'WPA3' },
@@ -24,8 +27,18 @@ const schema = yup.object({
 const QrCodeWifiForm = () => {
     const { qrCodeValueChanged } = useQrCodeGeneration();
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+    const { incrementGenerationCount } = useQrCodeGeneration();
+    const { isAuthenticated } = useAccount();
+    const { showNewAlert } = useAlert();
 
     const onSubmit = async (data: any) => {
+        if (!isAuthenticated){
+            const canGenerate = incrementGenerationCount();
+            if (!canGenerate) {
+                showNewAlert('Max QR code generations reached. Please sign in', AlertType.Error);
+                return;
+            }
+        }
         qrCodeValueChanged(`WIFI:S:${data.ssid};T:${data.encryptionType};P:${data.password};H:${data.isHidden};`);
     };
 

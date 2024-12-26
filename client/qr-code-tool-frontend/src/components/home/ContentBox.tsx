@@ -1,11 +1,14 @@
-import { Box, BoxProps } from "@mui/material";
+import { Box, BoxProps, useMediaQuery, useTheme } from "@mui/material";
 
 const ContextBox = (props: BoxProps) => {
+    const theme = useTheme();
+    const isLgOrLower = useMediaQuery(theme.breakpoints.down('lg'));
+
     return (
         <Box
             sx={{
                 display: "flex",
-                width: "70%",
+                width: isLgOrLower ? "80%" : "70%",
                 height: "65%",
                 backgroundColor: "white",
                 borderRadius: "20px",

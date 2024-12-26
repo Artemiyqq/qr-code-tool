@@ -1,4 +1,4 @@
-import { Box, Button, Container } from "@mui/material";
+import { Alert, Box, Button, Container, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { QrCodeMode } from "../../enums/qr-code-mode.enum";
 import { useQrCodeGeneration } from "../../hooks/useQrCodeGeneration";
@@ -9,6 +9,7 @@ import ContentBox from "./ContentBox";
 import AuthenticationButton from "../auth/AuthenticationButton";
 import { useAccount } from "../../hooks/useAccount";
 import AccountButton from "../auth/AccountButton";
+import { useAlert } from "../../hooks/useAlert";
 
 const Home = () => {
     const [qrCodeMode, setQrCodeMode] = useState(QrCodeMode.Generate);
@@ -16,6 +17,11 @@ const Home = () => {
     const { setQrCodeValue: setQrCodeScanningValue } = useQrCodeScanning();
 
     const { isAuthenticated } = useAccount();
+
+    const { showAlert, alertMessage, alertType } = useAlert();
+
+    const theme = useTheme();
+    const isLgOrLower = useMediaQuery(theme.breakpoints.down('lg'));
 
     const changeQrCodeMode = (mode: QrCodeMode) => {
         if (mode === QrCodeMode.Generate) setQrCodeGenerationValue(null);
@@ -31,7 +37,23 @@ const Home = () => {
             alignItems: 'center',
             flexDirection: "column",
         }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "70%", mb: 2, gap: 2 }}>
+            {showAlert && (
+                <Alert
+                    severity={alertType || 'error'}
+                    variant="filled"
+                    className="alert-container"
+                    icon={false}
+                    sx={{
+                        boxShadow: '0 0 50px 0 rgba(0,0,0,0.5)',
+                        borderRadius: '10px',
+                    }}
+                >
+                    <Typography variant="h6">
+                        {alertMessage}
+                    </Typography>
+                </Alert>
+            )}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: isLgOrLower ? "80%" : "70%", mb: 2, gap: 2 }}>
                 <Box sx={{ display: 'flex', gap: 2 }}>
                     <Button
                         variant="contained"
